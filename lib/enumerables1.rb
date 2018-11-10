@@ -24,23 +24,16 @@ end
 # multiplied by its index. array_sum_with_index([2, 9, 7]) => 23 because (2 * 0) +
 # (9 * 1) + (7 * 2) = 0 + 9 + 14 = 23
 def array_sum_with_index(arr)
-  # byebug
-  # solution without reduce
-  # count = 0
-  # arr.each_with_index { |num, i| count += num * i }
-  # count
-  # sick lol
   arr.each_with_index.reduce(0) { |sum, pair| sum + pair[0] * pair[1] }
 end
 
-array_sum_with_index([2, 9, 7])
 # MEDIUM
 
 # Given an array of bids and an actual retail price, return the bid closest to
 # the actual retail price without going over that price. Assume there is always
 # at least one bid below the retail price.
 def price_is_right(bids, actual_retail_price)
-  bids.reduce(0) do |closest, bid| # check if starting with 0 is nec here and above. not nec here. nec above. although probs just not nec here because the first ele in array was never above actual_retail_price
+  bids.reduce(0) do |closest, bid|
     if bid > closest && bid < actual_retail_price
       bid
     else
@@ -55,26 +48,13 @@ end
 # 2, 4, 8, 16) and the others have fewer than five factors. Consider writing a
 # helper method num_factors
 
-# map or reduce? both can work? not sure. i think reduce cuz we don't want 1 to 1 ratio old number of eles to new num of eles? sidebar, it seems like you can use reduce for almost everything, just seems cumbersome at times when you can more simply use select, map etc if they're enough for the job. reduce seems best for running count, max/min problems.
-# like here, just select? just filling an array if ele passes a condition so yeah probs. see if this works first
-# lol godammit be careful with reduce. remember acc has to return something so set a default case when using conditional on reduce
-# lol select is better here anyway XD
-
 def at_least_n_factors(numbers, n)
-  # numbers.reduce([]) do |acc, ele|
-  #   acc << ele if num_factors(ele) >= n
-  #   acc
-  # end
-
   numbers.select { |ele| num_factors(ele) >= n }
 end
 
 def num_factors(number)
   (1..number).count { |i| number % i == 0 }
 end
-
-# byebug
-# at_least_n_factors([1, 3, 10, 16], 5)
 
 # HARD
 
@@ -85,7 +65,6 @@ def ordered_vowel_words(words)
   words.select { |word| ordered_vowel_word?(word) }
 end
 
-# not sure if using reduce in this way is best practice but good to know at least. i think if i want the index and i want to use reduce at the same time i have to do it this way, at least so far that's what i've seen
 def ordered_vowel_word?(word)
   vowels = "aeiou"
 
