@@ -110,8 +110,8 @@ def repeated_number_ranges(arr)
   new_arr = []
   arr.each_with_index do |num1, i|
     break if i == arr.length - 1
-    if new_arr.length > 1
-      next if new_arr[-1][-1] > i
+    if new_arr.length > 0
+      next if new_arr[-1][-1] >= i
     end
 
     if num1 == arr[i + 1]
@@ -120,7 +120,7 @@ def repeated_number_ranges(arr)
           if num2 != num1
             new_arr << [i, j - 1]
             break
-          elsif num2 == num1 && j == arr.length - 1
+          elsif j == arr.length - 1
             new_arr << [i, j]
           end
         end
